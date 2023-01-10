@@ -340,49 +340,30 @@ def open_langs():
     lr.title("Languages")
     main = tk.Frame(lr)
 
-    Frame1 = tk.Frame(main)
-    Frame2 = tk.Frame(main)
-    Frame3 = tk.Frame(main)
-    Frame4 = tk.Frame(main)
-    Frame5 = tk.Frame(main)
+    Frame = tk.Frame(main)
     
-    rank_lb = tk.Label(Frame1, text="Rank")
-    rank_ls = tk.Listbox(Frame1, height=40, width=10)
+    label = tk.Label(Frame, text="Rank\tWord\tTransliteration\tDefinition\t\tPart of Speech")
+    text = tk.Listbox(Frame, height=40, width=100)
 
-    word_lb = tk.Label(Frame2, text="Word")
-    word_ls = tk.Listbox(Frame2, height=40, width=30)
+    with open('langs/dweth.json','r') as f:
+        lang = json.load(f)
 
-    prnctn_lb = tk.Label(Frame3, text="Pronunciation")
-    prnctn_ls = tk.Listbox(Frame3, height=40, width=30)
-
-    definition_lb = tk.Label(Frame4, text="Definition")
-    definition_ls = tk.Listbox(Frame4, height=40, width=30)
-
-    part_of_of_speech_lb = tk.Label(Frame5, text="Part of Speech")
-    part_of_of_speech_ls = tk.Listbox(Frame5, height=40, width=15)
+    for k,v in lang.items():
+        word = ""
+        word += str(lang[k]["rank"]) + "    "
+        word += k + "    "
+        word += str(lang[k]["transliteration"]) + "    "
+        word += str(lang[k]["definition"]) + "    "
+        word += str(lang[k]["part of speech"]) + "    "
+        text.insert('end', word)
 
     main.pack()
 
-    rank_lb.pack()
-    rank_ls.pack()
-
-    word_lb.pack()
-    word_ls.pack()
-
-    prnctn_lb.pack()
-    prnctn_ls.pack()
-
-    definition_lb.pack()
-    definition_ls.pack()
-
-    part_of_of_speech_lb.pack()
-    part_of_of_speech_ls.pack()
+    label.pack()
+    text.pack()
     
-    Frame1.pack(side="left")
-    Frame2.pack(side="left")
-    Frame3.pack(side="left")
-    Frame4.pack(side="left")
-    Frame5.pack(side="left")
+    Frame.pack(side="left")
+    
     results_frame.pack()
 
 def open_settings():
@@ -405,8 +386,6 @@ if __name__ == "__main__":
     fileMenu.add_command(label="Save")
     fileMenu.add_command(label="Save As")
     fileMenu.add_command(label="Save All")
-    fileMenu.add_command(label="Recent Languages")
-    fileMenu.add_command(label="View Languages")
     fileMenu.add_separator()
     fileMenu.add_command(label="Exit", command=quit)
 
